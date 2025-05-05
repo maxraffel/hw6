@@ -434,7 +434,7 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
 {
     std::vector<HashItem*> oldTable(table_);
     mIndex_++;
-    table_.clear()
+    table_.clear();
     table_.resize(CAPACITIES[mIndex_], nullptr);
     load_ = 0;
     heldItems_ = 0;
