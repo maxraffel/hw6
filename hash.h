@@ -20,6 +20,10 @@ struct MyStringHash {
     HASH_INDEX_T operator()(const std::string& k) const
     {
         // Add your code here
+        if (k.size() < 1) {
+            return 0;
+        }
+
         unsigned long long* w = generateAllW(k);
         unsigned long long result = 0;
 
@@ -64,19 +68,16 @@ struct MyStringHash {
         size_t offset = k.size() % 6;
         for (size_t i = 4; i > (k.size() - 1) / 6; --i) {
             w[wIndex] = 0;
-            std::cout << "w[" << wIndex << "] = 0" << std::endl;
             wIndex++;
         }
         if (offset != 0) {
             w[wIndex] = generateW(k.substr(0, offset));
-            std::cout << "w[" << wIndex << "] = " << w[wIndex] << std::endl;
             index = offset;
             wIndex++;
         }
         for (; wIndex < 5; wIndex++) {
             w[wIndex] = generateW(k.substr(index, 6));
             index += 6;
-            std::cout << "w[" << wIndex << "] = " << w[wIndex] << std::endl;
         }
         return w;
     }
